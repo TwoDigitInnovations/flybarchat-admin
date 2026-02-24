@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const ConstantsUrl = "http://localhost:8001/";
-// const ConstantsUrl = "https://api.flaychatbar.com/";
+// const ConstantsUrl = "http://localhost:8001/";
+const ConstantsUrl = "https://api.flaychatbar.com/";
 
 function handleAuthError(err, router) {
   if (typeof window !== "undefined") {
