@@ -5,9 +5,9 @@ const ConstantsUrl = "https://api.flaychatbar.com/";
 
 function handleAuthError(err, router) {
   if (typeof window !== "undefined") {
-    // localStorage.removeItem("token");
-    // localStorage.removeItem("userDetail");
-    // router.push("/login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userDetail");
+    router.push("/login");
   }
 }
 
