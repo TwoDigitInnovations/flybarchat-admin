@@ -35,26 +35,33 @@ function UserManagement(props) {
 
   const [searchParams, setSearchParams] = useState({
     name: "",
-    phone: "",
+    email: "",
   });
 
   const [selectedDate, setSelectedDate] = useState("");
 
-  const fetchUsers = (page = 1) => {
+  const fetchUsers = (page = 1, customParams = null) => {
     props.loader?.(true);
 
-    const data = {
+    const params = {
       page,
       limit: pagination.itemsPerPage,
-      name: searchParams.name,
-      phone: searchParams.phone,
-      date: selectedDate,
+      key: customParams?.name ?? searchParams.name,
+      email: customParams?.email ?? searchParams.email,
+      date: customParams?.date ?? selectedDate,
     };
 
-    Api("get", "auth/getAllUser", "", router)
+    const filteredParams = Object.fromEntries(
+      Object.entries(params).filter(
+        ([_, value]) => value !== "" && value !== null && value !== undefined,
+      ),
+    );
+
+    const query = new URLSearchParams(filteredParams).toString();
+
+    Api("get", `auth/getAllUser?${query}`, "", router)
       .then((res) => {
         props.loader?.(false);
-
         if (res?.status) {
           setAllUser(res.data || []);
           setPagination((prev) => ({
@@ -113,13 +120,15 @@ function UserManagement(props) {
   };
 
   const handleReset = () => {
-    setSearchParams({ name: "", phone: "" });
+    const resetParams = { name: "", email: "", date: "" };
+
+    setSearchParams({ name: "", email: "" });
     setSelectedDate("");
     setCurrentPage(1);
-    fetchUsers(1);
+
+    fetchUsers(1, resetParams); // direct new values pass
   };
 
-  // -------------------- TABLE CELLS --------------------
   const renderName = ({ value }) => (
     <div className="flex items-center justify-center">
       <User size={16} className="mr-2 text-gray-500" />
@@ -174,7 +183,6 @@ function UserManagement(props) {
     );
   };
 
- 
   const renderActions = ({ row }) => (
     <div className="flex justify-center">
       <button
@@ -208,13 +216,11 @@ function UserManagement(props) {
         <h1 className="text-2xl font-semibold mb-4">User Management</h1>
 
         <div className="bg-white  shadow-sm border border-gray-200 p-4 mb-6">
-       
           <h2 className="text-lg font-semibold text-black mb-4">
-           <FilterIcon className="inline mr-2" /> Search & Filters
+            <FilterIcon className="inline mr-2" /> Search & Filters
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-         
             <div>
               <label className="block text-sm font-medium text-black mb-1">
                 Name
@@ -229,22 +235,20 @@ function UserManagement(props) {
               />
             </div>
 
-           
             <div>
               <label className="block text-sm font-medium text-black mb-1">
-                Phone Number
+                Email
               </label>
               <input
-                type="text"
-                name="phone"
-                value={searchParams.phone}
+                type="email"
+                name="email"
+                value={searchParams.email}
                 onChange={handleFilterChange}
-                placeholder="Search by phone"
+                placeholder="Search by email"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
-           
             <div>
               <label className="block text-sm font-medium text-black mb-1">
                 Date
