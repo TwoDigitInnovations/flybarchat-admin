@@ -204,7 +204,7 @@ function UserManagement(props) {
       { Header: "EMAIL", accessor: "email", Cell: renderEmail },
       { Header: "DATE", accessor: "createdAt", Cell: renderDate },
       { Header: "PHONE", accessor: "phone", Cell: renderPhone },
-      { Header: "STATUS", accessor: "status", Cell: renderStatus },
+      // { Header: "STATUS", accessor: "status", Cell: renderStatus },
       { Header: "ACTION", Cell: renderActions },
     ],
     [pagination],

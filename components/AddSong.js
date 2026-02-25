@@ -115,7 +115,7 @@ function Createsong({ loader, fetchSong, ...props }) {
     <section className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 md:px-0 px-4">
       <div className=" overflow-y-scroll h-[90%] scrollbar-hide">
         <div className="bg-white w-full md:min-w-xl rounded-xl shadow-lg p-6 ">
-          <h2 className="text-xl font-semibold text-black mb-6">New song</h2>
+          <h2 className="text-xl font-semibold text-black mb-6">{props.editId ? "Edit Song" : "New Song"}</h2>
 
           <div className="mb-6">
             <label className="block text-sm font-medium text-black mb-2">
