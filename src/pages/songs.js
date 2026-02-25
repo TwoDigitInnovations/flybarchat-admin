@@ -64,10 +64,23 @@ function songPage(props) {
     <div className="text-center text-gray-600">{value} Minutes</div>
   );
 
+  const musicRender = ({ value }) => (
+    <div className="flex justify-center">
+      {value ? (
+        <audio controls>
+          <source src={value} type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      ) : (
+        <p className="text-sm text-gray-500">No music file</p>
+      )}
+    </div>
+  );
+
   const renderActions = ({ row }) => (
     <div className="flex justify-center gap-2">
       <button
-        className="p-2 bg-gray-100 rounded hover:bg-gray-200"
+        className="p-2 bg-gray-100 rounded hover:bg-gray-200 cursor-pointer"
         onClick={() => {
           setEditId(row.original._id);
           setEditData(row.original);
@@ -78,7 +91,7 @@ function songPage(props) {
       </button>
 
       <button
-        className="p-2 bg-gray-100 rounded hover:bg-red-100"
+        className="p-2 bg-gray-100 rounded hover:bg-red-100 cursor-pointer"
         onClick={() => setConfirmOpen(true) || setDeleteId(row.original._id)}
       >
         <Trash2 size={16} className="text-red-500" />
@@ -111,8 +124,13 @@ function songPage(props) {
       { Header: "song Name", accessor: "name", Cell: renderName },
       { Header: "Price", accessor: "price", Cell: renderPrice },
       {
+        Header: "Song",
+        accessor: "music",
+        Cell: musicRender,
+      },
+      {
         Header: "Video Call Time",
-        accessor: "videoCallTime",
+        accessor: "time",
         Cell: renderVideoTime,
       },
       { Header: "Action", Cell: renderActions },
@@ -170,6 +188,7 @@ function songPage(props) {
         yesText="Yes, Delete"
         noText="Cancel"
       />
+
       {openAddSong && (
         <Createsong
           loader={props.loader}
@@ -177,6 +196,7 @@ function songPage(props) {
           setOpenAddSong={setOpenAddSong}
           setEditId={setEditId}
           editData={editData}
+          editId={editId}
         />
       )}
     </section>
