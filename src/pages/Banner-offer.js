@@ -44,7 +44,7 @@ function BannerOffer(props) {
   const submit = async () => {
     const formData = new FormData();
 
-    if (!form.image || form.price || form.offerprice) {
+    if (!form.image || !form.price || !form.offerprice) {
       toast.error("Please fill all the details");
     }
 
