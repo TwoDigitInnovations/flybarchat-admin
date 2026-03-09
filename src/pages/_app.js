@@ -36,17 +36,15 @@ export default function App({ Component, pageProps }) {
       setUser(JSON.parse(localUser));
     }
 
-    // if (token) {
-    //   try {
-    //     const res = await Api("get", "auth/profile", "", router);
-    //     localStorage.setItem("userDetail", JSON.stringify(res.data));
-    //     setUser(res.data);
-    //   } catch {
-    //     // localStorage.clear();
-    //     // setUser({})
-    //     // router.push("/login");
-    //   }
-    // }
+    if (token) {
+      try {
+        setUser(res.data);
+      } catch {
+        localStorage.clear();
+        setUser({});
+        router.push("/login");
+      }
+    }
   };
 
   return (

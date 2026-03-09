@@ -43,7 +43,7 @@ function AdminDashboard() {
   const router = useRouter();
 
   return (
-    <section className="bg-secondary  min-h-screen p-6 ">
+    <section className="bg-secondary  min-h-screen md:p-6 p-4 ">
       <div className="max-w-7xl mx-auto">
 
       

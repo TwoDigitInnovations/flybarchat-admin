@@ -46,9 +46,15 @@ const SidePannel = ({ setOpenTab, openTab }) => {
       img: <Music size={25} />,
       access: ["admin"],
     },
-     {
+    {
       href: "/settings",
       title: "Settings",
+      img: <Settings size={25} />,
+      access: ["admin"],
+    },
+    {
+      href: "/Banner-offer",
+      title: "Banner Offer",
       img: <Settings size={25} />,
       access: ["admin"],
     },
