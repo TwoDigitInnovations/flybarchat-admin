@@ -196,6 +196,7 @@ function songPage(props) {
           setOpenAddSong={setOpenAddSong}
           setEditId={setEditId}
           editData={editData}
+          setEditData={setEditData}
           editId={editId}
         />
       )}

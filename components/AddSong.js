@@ -7,7 +7,7 @@ import { UploadCloud } from "lucide-react";
 import { toast } from "react-toastify";
 import Compressor from "compressorjs";
 
-function Createsong({ loader, fetchSong, ...props }) {
+function Createsong({ loader, setEditData, fetchSong, ...props }) {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -100,6 +100,7 @@ function Createsong({ loader, fetchSong, ...props }) {
               : "music created successfully",
           );
           fetchSong();
+          setEditData("");
           props.setOpenAddSong(false);
         } else {
           toast.error(res?.message || "Something went wrong");
@@ -115,7 +116,9 @@ function Createsong({ loader, fetchSong, ...props }) {
     <section className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 md:px-0 px-4">
       <div className=" overflow-y-scroll h-[90%] scrollbar-hide">
         <div className="bg-white w-full md:min-w-xl rounded-xl shadow-lg p-6 ">
-          <h2 className="text-xl font-semibold text-black mb-6">{props.editId ? "Edit Song" : "New Song"}</h2>
+          <h2 className="text-xl font-semibold text-black mb-6">
+            {props.editId ? "Edit Song" : "New Song"}
+          </h2>
 
           <div className="mb-6">
             <label className="block text-sm font-medium text-black mb-2">

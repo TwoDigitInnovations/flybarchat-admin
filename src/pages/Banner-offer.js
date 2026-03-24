@@ -20,6 +20,8 @@ function BannerOffer(props) {
     image: "",
     price: "",
     offerprice: "",
+    start_time: "",
+    end_time: "",
   });
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function BannerOffer(props) {
   const getBanner = () => {
     props.loader(true);
 
-    Api("get", "banner/get-banner-offer", "", router).then(
+    Api("get", "banner/getBannerOfferForAdmin", "", router).then(
       (res) => {
         props.loader(false);
 
@@ -51,6 +53,8 @@ function BannerOffer(props) {
     if (form.image) formData.append("image", form.image);
     formData.append("price", form.price);
     formData.append("offerprice", form.offerprice);
+    formData.append("start_time", form.start_time);
+    formData.append("end_time", form.end_time);
 
     props.loader(true);
 
@@ -74,6 +78,8 @@ function BannerOffer(props) {
             image: "",
             price: "",
             offerprice: "",
+            start_time: "",
+            end_time: "",
           });
 
           getBanner();
@@ -106,15 +112,18 @@ function BannerOffer(props) {
       image: item.image,
       price: item.price,
       offerprice: item.offerprice,
+      start_time: item.start_time || "",
+      end_time: item.end_time || "",
     });
     setPreview(item.image);
 
     setShowModal(true);
   };
 
+  console.log(form);
+
   return (
     <div className="bg-secondary min-h-screen md:p-6 p-4">
-      \
       <div className="flex md:flex-row flex-col justify-between  gap-4 md:items-center mb-8">
         <div>
           <h2 className="text-3xl font-semibold text-white">Banner Offers</h2>
@@ -154,6 +163,8 @@ function BannerOffer(props) {
                 <th className="p-4 text-left">Image</th>
                 <th className="p-4 text-left">Price</th>
                 <th className="p-4 text-left">Offer Price</th>
+                <th className="p-4 text-left">Start time</th>
+                <th className="p-4 text-left">End time</th>
                 <th className="p-4 text-left">Action</th>
               </tr>
             </thead>
@@ -167,7 +178,7 @@ function BannerOffer(props) {
                   <td className="p-1">
                     <img
                       src={item.image}
-                      className="w-28 h-28 object-contain rounded-lg shadow-sm"
+                      className="w-28 h-full object-contain rounded-lg shadow-sm"
                     />
                   </td>
 
@@ -177,6 +188,17 @@ function BannerOffer(props) {
                     <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-medium">
                       ${item.offerprice}
                     </span>
+                  </td>
+                  <td className="p-4">
+                    {item?.start_time
+                      ? new Date(item.start_time).toLocaleString()
+                      : "Not Found"}
+                  </td>
+
+                  <td className="p-4">
+                    {item?.end_time
+                      ? new Date(item.end_time).toLocaleString()
+                      : "Not Found"}
                   </td>
 
                   <td className="p-4 flex items-center  gap-3">
@@ -240,7 +262,6 @@ function BannerOffer(props) {
                 }}
               />
 
-              {/* Image Preview */}
               {preview && (
                 <div className="flex justify-center">
                   <img
@@ -273,6 +294,35 @@ function BannerOffer(props) {
                   })
                 }
               />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm text-gray-600 mb-1 block">
+                    Start Date & Time
+                  </label>
+                  <input
+                    type="datetime-local"
+                    className="border w-full p-2.5 rounded-lg text-black focus:ring-2 focus:ring-indigo-400 outline-none"
+                    value={form.start_time}
+                    onChange={(e) =>
+                      setForm({ ...form, start_time: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm text-gray-600 mb-1 block">
+                    End Date & Time
+                  </label>
+                  <input
+                    type="datetime-local"
+                    className="border w-full p-2.5 rounded-lg text-black focus:ring-2 focus:ring-indigo-400 outline-none"
+                    value={form.end_time}
+                    onChange={(e) =>
+                      setForm({ ...form, end_time: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
 
               {/* Button */}
               <button
