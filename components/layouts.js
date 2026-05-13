@@ -15,25 +15,24 @@ const Layout = ({ children }) => {
     setToken(storedToken);
   }, []);
 
-  if (!mounted) return null; 
+  if (!mounted) return null;
 
   const path = router.pathname;
 
-  const isLoginPage = path === "/login";
-
-
+  const isLoginPage = ["/login", "/termcondition", "/privacypolicy"].includes(
+    path,
+  );
   if (isLoginPage) {
-    return (
-      <main className="min-h-screen flex-1">
-        {children}
-      </main>
-    );
+    return <main className="min-h-screen flex-1">{children}</main>;
   }
 
- 
   return (
     <div className="min-h-screen  flex flex-col">
-      <img src="/barimage.png" alt="Background" className="fixed top-0 left-0 w-full h-full object-cover -z-10 " />
+      <img
+        src="/barimage.png"
+        alt="Background"
+        className="fixed top-0 left-0 w-full h-full object-cover -z-10 "
+      />
       <SidePannel setOpenTab={setOpenTab} openTab={openTab} />
 
       <div className="flex-1 lg:pl-72 ">

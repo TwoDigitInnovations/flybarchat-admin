@@ -65,6 +65,10 @@ const SidePannel = ({ setOpenTab, openTab }) => {
   };
 
   const currentMenuItems = menuItems;
+  const publicRoutes = ["/login", "/termcondition", "/privacypolicy"];
+  const path = router.pathname.toLowerCase();
+  const isPublic = publicRoutes.includes(path);
+  console.log("Rendering SidePannel - Path:", path, "Is Public:", isPublic);
 
   return (
     <>

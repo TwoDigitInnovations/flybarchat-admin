@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
 
   const router = useRouter();
 
-  const publicRoutes = ["/login"];
+  const publicRoutes = ["/login","/termcondition", "/privacypolicy"];
 
   useEffect(() => {
     initAuth();

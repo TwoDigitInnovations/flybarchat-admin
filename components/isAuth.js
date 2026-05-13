@@ -6,13 +6,13 @@ const isAuth = (Component, allowedRoles = []) => {
     const router = useRouter();
     const [isAuthorized, setIsAuthorized] = useState(null);
 
-    const publicRoutes = ["/login"];
+    const publicRoutes = ["/login", "/termcondition", "/privacypolicy"];
     const path = router.pathname.toLowerCase();
     const isPublic = publicRoutes.includes(path);
 
     useEffect(() => {
       if (typeof window === "undefined") return;
-
+      console.log("Checking auth for path:", path, isPublic);
       if (isPublic) {
         setIsAuthorized(true);
         return;
